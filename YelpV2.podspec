@@ -13,7 +13,6 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/5ecret5tar/YelpV2.git"
   s.license      = "MIT"
   s.author             = { "Pawel Gieniec" => "pawel@5ecret5tar.com" }
-  s.platform     = :ios
   s.platform     = :ios, "6.0"
   s.source       = { :git => "git@github.com:5ecret5tar/YelpV2.git", :tag => "v0.0.1-lw" }
   s.source_files  = "YelpV2/YelpV2/*.{h,m}"
