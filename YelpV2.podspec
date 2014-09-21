@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "YelpV2"
-  s.version      = "v0.0.2"
+  s.version      = "0.0.2"
   s.summary      = "An Objective-C client for the YelpV2 api"
   s.homepage     = "https://github.com/5ecret5tar/YelpV2.git"
   s.license      = "MIT"
