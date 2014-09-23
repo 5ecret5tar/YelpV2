@@ -43,5 +43,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>YELPConsumerKey</key>
+	<string></string>
+	<key>YELPConsumerSecret</key>
+	<string></string>
+	<key>YELPToken</key>
+	<string></string>
+	<key>YELPTokenSecret</key>
+	<string></string>
 </dict>
 </plist>
