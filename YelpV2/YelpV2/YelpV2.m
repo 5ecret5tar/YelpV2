@@ -10,6 +10,8 @@
 
 @implementation YelpV2
 
+static NSString *kYelpURLString = @"http://api.yelp.com/v2";
+
 + (instancetype)sharedInstance
 {
     static dispatch_once_t once;
@@ -20,8 +22,47 @@
     return sharedInstance;
 }
 
-- (void)setupYelpV2WithConsumerKey:(NSString*)consumerKey withConsumerSecret:(NSString*)consumerSecret withToken:(NSString*)token withTokenSecret:(NSString*)tokenSecret
+-(id)init
 {
+    NSString * consumerKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"YELPConsumerKey"];
+    NSString * consumerSecret = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"YELPConsumerSecret"];
+    NSString * token = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"YELPToken"];
+    NSString * tokenSecret = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"YELPTokenSecret"];
+
+    NSURL * url = [[NSURL alloc] initWithString:kYelpURLString];
     
+    if([super initWithBaseURL:url key:consumerKey secret:consumerSecret]) {
+        self.accessToken = [[AF2OAuth1Token alloc] initWithKey:token secret:tokenSecret session:nil expiration:[NSDate distantFuture] renewable:NO];
+        self.requestSerializer = [AFJSONRequestSerializer serializer];
+    }
+    return self;
 }
+
+- (void)search:(NSString*)searchTerm withCLLocation:(CLLocationCoordinate2D)location withCompletionBlock:(void(^)(id response))completionBlock withErrorBlock:(void(^)(NSError * error))errorBlock
+{
+    NSString * ll = [NSString stringWithFormat:@"%f,%f", location.latitude, location.longitude];
+    NSDictionary * parameters = @{@"" : searchTerm, @"ll" : ll};
+    
+    [self makeServerRequestWithMethod:@"GET" withPath:@"/v2/search" withParameters:parameters withCompletionBlock:^(id response) {
+        completionBlock(response);
+    } withErrorBlock:^(NSError *error) {
+        errorBlock(error);
+    }];
+}
+
+- (void)makeServerRequestWithMethod:(NSString*)method withPath:(NSString*)path withParameters:(NSDictionary*)parameters withCompletionBlock:(void(^)(id response))completionBlock withErrorBlock:(void(^)(NSError * error))errorBlock
+{
+    NSMutableURLRequest * request = [self requestWithMethod:method path:path parameters:parameters];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    AFHTTPRequestOperation * operation = [[AFHTTPRequestOperationManager manager] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"failed");
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+}
+
 @end

@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <AF2OAuth1Client/AF2OAuth1Client.h>
+#import <MapKit/MapKit.h>
 
 @interface YelpV2 : AF2OAuth1Client
 + (id) sharedInstance;
+- (void)search:(NSString*)searchTerm withCLLocation:(CLLocationCoordinate2D)location withCompletionBlock:(void(^)(id response))completionBlock withErrorBlock:(void(^)(NSError * error))errorBlock;
 @end
