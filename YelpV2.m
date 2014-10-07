@@ -57,9 +57,9 @@ static NSString *kYelpURLString = @"http://api.yelp.com/v2";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     AFHTTPRequestOperation * operation = [[AFHTTPRequestOperationManager manager] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        completionBlock(responseObject)
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failed");
+        errorBlock(error);
     }];
     
     [manager.operationQueue addOperation:operation];
