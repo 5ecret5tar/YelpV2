@@ -8,13 +8,13 @@
 
 Pod::Spec.new do |s|
   s.name         = "YelpV2"
-  s.version      = "0.0.5"
+  s.version      = "0.0.6"
   s.summary      = "An Objective-C client for the YelpV2 api"
   s.homepage     = "https://github.com/5ecret5tar/YelpV2.git"
   s.license      = "MIT"
   s.author             = { "Pawel Gieniec" => "pawel@5ecret5tar.com" }
   s.platform     = :ios, "6.0"
-  s.source       = { :git => "git@github.com:5ecret5tar/YelpV2.git", :tag => "v0.0.5" }
+  s.source       = { :git => "git@github.com:5ecret5tar/YelpV2.git", :tag => "v0.0.6" }
   s.source_files  = "*.{h,m}"
   s.requires_arc = true
   s.dependency "AF2OAuth1Client", "~> 0.3"
