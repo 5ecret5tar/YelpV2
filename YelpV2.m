@@ -41,7 +41,7 @@ static NSString *kYelpURLString = @"http://api.yelp.com/v2";
 - (void)search:(NSString*)searchTerm withCLLocation:(CLLocationCoordinate2D)location withCompletionBlock:(void(^)(id response))completionBlock withErrorBlock:(void(^)(NSError * error))errorBlock
 {
     NSString * ll = [NSString stringWithFormat:@"%f,%f", location.latitude, location.longitude];
-    NSDictionary * parameters = @{@"" : searchTerm, @"ll" : ll};
+    NSDictionary * parameters = @{@"term" : searchTerm, @"ll" : ll};
     
     [self makeServerRequestWithMethod:@"GET" withPath:@"/v2/search" withParameters:parameters withCompletionBlock:^(id response) {
         completionBlock(response);
